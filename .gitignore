@@ -1,0 +1,25 @@
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+.venv/
+env/
+
+*.log
+
+**/.env
+**/.env.*           # Any environment-specific secret files
+docker-compose.override.yml
+
+.vscode/
+.idea/
+
+.cache/
+.pytest_cache/
+htmlcov/
+coverage.*
+
+*.so
+
+
