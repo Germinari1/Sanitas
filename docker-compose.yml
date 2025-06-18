@@ -6,6 +6,8 @@ services:
       context: ./hospital_neo4j_etl
     env_file:
       - .env
+    volumes:
+      - ./hospital_neo4j_etl/src:/app        
 
   chatbot_api:
     build:
@@ -16,6 +18,8 @@ services:
       - hospital_neo4j_etl
     ports:
       - "8000:8000"
+    volumes:
+      - ./chatbot_api/src:/app               
 
   chatbot_frontend:
     build:
@@ -26,3 +30,5 @@ services:
       - chatbot_api
     ports:
       - "8501:8501"
+    volumes:
+      - ./chatbot_frontend/src:/app

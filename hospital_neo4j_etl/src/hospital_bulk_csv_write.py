@@ -27,15 +27,32 @@ NODES = ["Hospital", "Payer", "Physician", "Patient", "Visit", "Review"]
 
 
 def _set_uniqueness_constraints(tx, node):
+    """
+    Ensures uniqueness constraints on a Neo4j node.
+    
+    Args:
+        tx: The Neo4j transaction object.
+        node: The node label for which to set the uniqueness constraint.
+    Returns:
+        None
+    """
     query = f"""CREATE CONSTRAINT IF NOT EXISTS FOR (n:{node})
         REQUIRE n.id IS UNIQUE;"""
     _ = tx.run(query, {})
 
-
+# TODO: refactor this:
+    # modularity (split queries into sep functions)
+    # make queries less shitty
 @retry(tries=100, delay=10)
 def load_hospital_graph_from_csv() -> None:
-    """Load structured hospital CSV data following
-    a specific ontology into Neo4j"""
+    """
+    Loads structured hospital CSV data following a specific ontology into Neo4j
+    
+    Args:
+        None
+    Returns:
+        None
+    """
 
     driver = GraphDatabase.driver(
         NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD)

@@ -17,7 +17,9 @@ dependencies = [
     "openai",
     "opentelemetry-api",
     "pydantic",
-    "uvicorn"
+    "uvicorn",
+    "pytest-asyncio",
+    "pytest"
 ]
 
 [project.optional-dependencies]

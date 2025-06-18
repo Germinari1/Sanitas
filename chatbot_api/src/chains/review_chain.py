@@ -1,3 +1,7 @@
+"""
+Chain for processing hospital reviews and answering questions about them.
+"""
+
 import os
 from langchain_community.vectorstores import Neo4jVector
 from langchain_google_genai import ChatGoogleGenerativeAI

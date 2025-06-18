@@ -4,16 +4,20 @@ from models.hospital_rag_query import HospitalQueryInput, HospitalQueryOutput
 from utils.async_utils import async_retry
 
 app = FastAPI(
-    title="Hospital Chatbot",
-    description="Endpoints for a hospital system graph RAG chatbot",
+    title="Sanitas - Hospital Chatbot",
+    description="Endpoints for a hospital system RAG chatbot",
 )
 
 
 @async_retry(max_retries=10, delay=1)
 async def invoke_agent_with_retry(query: str):
     """
-    Retry the agent if a tool fails to run. This can help when there
-    are intermittent connection issues to external APIs.
+    Retry the agent if a tool fails to run. Asynchronous invocation is used.
+    
+    Args:
+        query (str): The query to send to the RAG agent.
+    Returns:
+        dict: The response from the RAG agent.
     """
 
     return await hospital_rag_agent_executor.ainvoke({"input": query})

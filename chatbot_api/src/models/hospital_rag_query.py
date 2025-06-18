@@ -1,3 +1,6 @@
+"""
+Models for input and output of the RAG system agent
+"""
 from pydantic import BaseModel
 
 

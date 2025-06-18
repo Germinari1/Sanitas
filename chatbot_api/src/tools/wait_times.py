@@ -6,7 +6,14 @@ from langchain_neo4j import Neo4jGraph
 
 
 def _get_current_hospitals() -> list[str]:
-    """Fetch a list of current hospital names from a Neo4j database."""
+    """
+    Fetch a list of current hospital names from a Neo4j database.
+    
+    Args:
+        None
+    Returns:
+        list[str]: A list of hospital names in lowercase.
+    """
     graph = Neo4jGraph(
         url=os.getenv("NEO4J_URI"),
         username=os.getenv("NEO4J_USERNAME"),
@@ -26,7 +33,14 @@ def _get_current_hospitals() -> list[str]:
 
 
 def _get_current_wait_time_minutes(hospital: str) -> int:
-    """Get the current wait time at a hospital in minutes."""
+    """
+    Get the current wait time at a hospital in minutes.
+    
+    Args:
+        hospital (str): The name of the hospital.
+    Returns:
+        int: The wait time in minutes, or -1 if the hospital does not exist.
+    """
 
     current_hospitals = _get_current_hospitals()
 
@@ -37,7 +51,14 @@ def _get_current_wait_time_minutes(hospital: str) -> int:
 
 
 def get_current_wait_times(hospital: str) -> str:
-    """Get the current wait time at a hospital formatted as a string."""
+    """
+    Get the current wait time at a hospital formatted as a string.
+
+    Args:
+        hospital (str): The name of the hospital.
+    Returns:
+        str: The wait time formatted as "X hours Y minutes" or "Y minutes".
+    """
 
     wait_time_in_minutes = _get_current_wait_time_minutes(hospital)
 
@@ -55,7 +76,14 @@ def get_current_wait_times(hospital: str) -> str:
 
 
 def get_most_available_hospital(_: Any) -> dict[str, float]:
-    """Find the hospital with the shortest wait time."""
+    """
+    Find the hospital with the shortest wait time.
+    
+    Args:
+        _: Unused parameter, can be any type.
+    Returns:
+        dict[str, float]: A dictionary with the hospital name as the key and the wait time in minutes as the value.
+    """
 
     current_hospitals = _get_current_hospitals()
 

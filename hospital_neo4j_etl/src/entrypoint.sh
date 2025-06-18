@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run any setup steps or pre-processing tasks here
-echo "Running ETL to move hospital data from csvs to Neo4j..."
+echo "Running ETL: moving hospital data from CSVs to graph database..."
 
 # Run the ETL script
 python hospital_bulk_csv_write.py

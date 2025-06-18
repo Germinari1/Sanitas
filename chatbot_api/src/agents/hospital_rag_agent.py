@@ -1,10 +1,13 @@
+"""
+Defines the agent for our RAG system
+"""
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import AgentExecutor, Tool
 from langchain.agents import initialize_agent, AgentType
 
-from chains.hospital_cypher_chain import hospital_cypher_chain
-from chains.hospital_review_chain import reviews_vector_chain
+from chains.cypher_chain import hospital_cypher_chain
+from chains.review_chain import reviews_vector_chain
 from tools.wait_times import get_current_wait_times, get_most_available_hospital
 
 
@@ -70,8 +73,8 @@ llm_with_tools = llm.bind_tools(tools)
 
 # rag_agent = initialize_agent(
 #     tools=tools,
-#     llm=llm,                                        # your raw LLM
-#     agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,               # pick the functions-style agent
+#     llm=llm,                                       
+#     agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,              
 #     verbose=True,
 # )
 
