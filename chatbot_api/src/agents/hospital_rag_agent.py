@@ -1,22 +1,16 @@
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import (
-    create_openai_functions_agent,
-    Tool,
-    AgentExecutor,
-)
-from langchain import hub
+from langchain.agents import AgentExecutor, Tool
+from langchain.agents import initialize_agent, AgentType
+
 from chains.hospital_cypher_chain import hospital_cypher_chain
 from chains.hospital_review_chain import reviews_vector_chain
+from tools.wait_times import get_current_wait_times, get_most_available_hospital
 
-from tools.wait_times import (
-    get_current_wait_times,
-    get_most_available_hospital,
-)
 
 HOSPITAL_AGENT_MODEL = os.getenv("HOSPITAL_AGENT_MODEL")
 
-hospital_agent_prompt = hub.pull("hwchase17/openai-functions-agent")
+# hospital_agent_prompt = hub.pull("hwchase17/openai-functions-agent")
 
 
 tools = [
@@ -72,15 +66,19 @@ llm = ChatGoogleGenerativeAI(
     model=HOSPITAL_AGENT_MODEL,
 )
 
-rag_agent = create_openai_functions_agent(
-    llm=llm,
-    prompt=hospital_agent_prompt,
-    tools=tools,
-)
+llm_with_tools = llm.bind_tools(tools)
 
-hospital_rag_agent_executor = AgentExecutor(
-    agent=rag_agent, 
+# rag_agent = initialize_agent(
+#     tools=tools,
+#     llm=llm,                                        # your raw LLM
+#     agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,               # pick the functions-style agent
+#     verbose=True,
+# )
+
+hospital_rag_agent_executor = initialize_agent(
     tools=tools,
-    verbose=True, 
+    llm=llm,
+    agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True,
     return_intermediate_steps=True,
 )
