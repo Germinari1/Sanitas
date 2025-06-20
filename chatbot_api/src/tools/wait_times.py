@@ -59,8 +59,10 @@ def get_current_wait_times(hospital: str) -> str:
     Returns:
         str: The wait time formatted as "X hours Y minutes" or "Y minutes".
     """
-
-    wait_time_in_minutes = _get_current_wait_time_minutes(hospital)
+    try:
+        wait_time_in_minutes = _get_current_wait_time_minutes(hospital)
+    except Exception:
+        return f"Error: Unable to fetch wait time for '{hospital}'."
 
     if wait_time_in_minutes == -1:
         return f"Hospital '{hospital}' does not exist."
@@ -84,14 +86,26 @@ def get_most_available_hospital(_: Any) -> dict[str, float]:
     Returns:
         dict[str, float]: A dictionary with the hospital name as the key and the wait time in minutes as the value.
     """
+    # guard against database errors
+    try:
+        current_hospitals = _get_current_hospitals()
+    except Exception:
+        return {"error": "Unable to fetch hospital list from database."}
 
-    current_hospitals = _get_current_hospitals()
+    # no hospitals to choose
+    if not current_hospitals:
+        return {"error": "No hospitals found in database."}
 
     current_wait_times = [
         _get_current_wait_time_minutes(h) for h in current_hospitals
     ]
 
-    best_time_idx = np.argmin(current_wait_times)
+    # choose the shortest wait
+    try:
+        best_time_idx = int(np.argmin(current_wait_times))
+    except ValueError:
+        return {"error": "No wait-time data to choose from."}
+
     best_hospital = current_hospitals[best_time_idx]
     best_wait_time = current_wait_times[best_time_idx]
 
