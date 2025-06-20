@@ -1,3 +1,7 @@
+"""
+Note: this code is meant to demonstrate in rought lines how a tool that fetches specific data in a RAG agent could work. if we had an actual hospital system and etc, 
+this could be, for instance, an API call to the system or another way of communication with it. 
+"""
 import os
 from typing import Any
 
