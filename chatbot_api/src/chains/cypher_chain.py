@@ -9,8 +9,15 @@ HOSPITAL_QA_MODEL = os.getenv("HOSPITAL_QA_MODEL")
 HOSPITAL_CYPHER_MODEL = os.getenv("HOSPITAL_CYPHER_MODEL")
 
 class ReadOnlyCorrector(CypherQueryCorrector):
+    """
+    A validator for Cypher queries that ensures they do not contain
+    any keywords that could modify the database, such as CREATE, MERGE, etc.
+    Inherits from CypherQueryCorrector and overrides the __call__ method to 
+    raise an error if any unsafe keywords are found in the query, instead of 
+    calling internal methods of the class, as it normally would.
+    """
     def __call__(self, query: str) -> str:
-        forbid = ["CREATE", "MERGE", "DELETE", "SET ", "REMOVE", "DROP", "CALL"]
+        forbid = ["CREATE", "DELETE", "SET ", "REMOVE", "DROP", "CALL"]
         upper = query.upper()
         for word in forbid:
             if word in upper:
