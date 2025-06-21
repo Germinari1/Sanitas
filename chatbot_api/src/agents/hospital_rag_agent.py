@@ -8,6 +8,7 @@ from langchain.agents import initialize_agent, AgentType
 
 from chains.cypher_chain import hospital_cypher_chain
 from chains.review_chain import reviews_vector_chain
+from chains.file_retrieval import build_file_retrieval_tool
 from tools.wait_times import get_current_wait_times, get_most_available_hospital
 
 
@@ -64,6 +65,12 @@ tools = [
         """,
     ),
 ]
+tools.append(
+    build_file_retrieval_tool(
+        docs_path = "kb_docs_retrievable", 
+        qa_model_env="HOSPITAL_QA_MODEL"
+    )
+)
 
 llm = ChatGoogleGenerativeAI(
     model=HOSPITAL_AGENT_MODEL,

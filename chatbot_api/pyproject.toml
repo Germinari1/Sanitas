@@ -11,7 +11,6 @@ dependencies = [
     "langchain_huggingface",
     "langchain_community",
     "sentence-transformers",
-    "langchainhub",
     "neo4j",
     "numpy",
     "openai",
@@ -19,7 +18,11 @@ dependencies = [
     "pydantic",
     "uvicorn",
     "pytest-asyncio",
-    "pytest"
+    "pytest",
+    "langchain_chroma",
+    "chromadb",
+    "pypdf",
+
 ]
 
 [project.optional-dependencies]
