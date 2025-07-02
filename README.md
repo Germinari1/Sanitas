@@ -11,6 +11,10 @@ Some features include:
 
 > Note: this was used as an educational/demonstration project for an event at [Entropic](https://entropic.pythonanywhere.com/). The data used here is synthetic and used for learning and demonstration purposes only.
 
+<br>
+
+![Screenshot of the app running](https://github.com/Germinari1/Sanitas/blob/main/screenshot-app-running.jpg)
+
 ## Getting Started
 Create a `.env` file in the root directory and add the following environment variables:
 
