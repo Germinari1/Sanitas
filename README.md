@@ -1,6 +1,6 @@
-# Build an LLM RAG Chatbot With LangChain
+# Sanitas: An Agentic RAG Chatbot System
 
-This project demonstrates how to build a Retrieval-Augmented Generation (RAG) chatbot using LangChain, Neo4j (a graph database), and concepts of agentic AI. Given a dataset, the chatbot is specialized to answer questions about hospitals, payers, physicians, patients, visits, and reviews.
+This project demonstrates  a Retrieval-Augmented Generation (RAG) chatbot using LangChain, Neo4j (a graph database), and concepts of agentic AI. Given a dataset, the chatbot is specialized to answer questions about hospitals, payers, physicians, patients, visits, and reviews. I supports both RAG over both a graph database (`AuraDB`) and `.txt`/`.pdf` files, besides tools that can be called by the agent.
 
 Some features include: 
 - **Graph database**: Uses `Neo4j` to store and query our data. That way, our chatbot can quickly retrieve relevant information.
@@ -9,7 +9,7 @@ Some features include:
 - **REST API**: The chatbot is exposed as a `REST API`, built using `FastAPI`.
 - **Microservices-based architecture**: Each "microservice" is containerized using `Docker`, and `Docker compose` is used to organize such build process.
 
-> Note: this was develop as a educational project for an event from [Entropic](https://entropic.pythonanywhere.com/)
+> Note: this was used as an educational/demonstration project for an event at [Entropic](https://entropic.pythonanywhere.com/). The data used here is synthetic and used for learning and demonstration purposes only.
 
 ## Getting Started
 Create a `.env` file in the root directory and add the following environment variables:
